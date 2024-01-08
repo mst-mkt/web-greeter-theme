@@ -2,6 +2,10 @@
   "editor.formatOnSave": true,
   "editor.defaultFormatter": "biomejs.biome",
   "editor.tabSize": 2,
+  "editor.codeActionsOnSave": {
+    "quickfix.biome": true,
+    "source.organizeImports": true
+  },
 
   "files.insertFinalNewline": true,
   "files.trimTrailingWhitespace": true,
