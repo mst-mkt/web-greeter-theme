@@ -10,7 +10,8 @@
       "nursery": {
         "noUnusedImports": "warn"
       }
-    }
+    },
+    "ignore": ["./src/utils/mock.ts"]
   },
   "formatter": {
     "enabled": true,
