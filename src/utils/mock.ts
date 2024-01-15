@@ -1,14 +1,15 @@
 // original source: https://raw.githubusercontent.com/JezerM/lightdm-void-theme/master/src/utils/mock.ts
 
-import type {
+import {
   Greeter as GreeterClass,
   GreeterConfig as GreeterConfigClass,
-  LightDMBattery,
+  MessageSignal as MessageSignalClass,
+  MessageSignal as PromptSignalClass,
   Signal as SignalClass,
   ThemeUtils as ThemeUtilsClass,
 } from 'nody-greeter-types'
 
-export class LightDMLanguage {
+class LightDMLanguage {
   code: string
   name: string
   territory: string
@@ -18,8 +19,7 @@ export class LightDMLanguage {
     this.territory = territory
   }
 }
-
-export class LightDMLayout {
+class LightDMLayout {
   name: string
   description: string
   short_description: string
@@ -29,8 +29,7 @@ export class LightDMLayout {
     this.short_description = short_description
   }
 }
-
-export class LightDMUser {
+class LightDMUser {
   background = ''
   display_name: string
   home_directory: string
@@ -51,7 +50,7 @@ export class LightDMUser {
   }
 }
 
-export class LightDMSession {
+class LightDMSession {
   key: string
   name: string
   type: string
@@ -64,20 +63,28 @@ export class LightDMSession {
   }
 }
 
-export class Signal implements SignalClass {
+type PublicPart<T> = Pick<T, keyof T>
+
+function signalToSignal(signal: SignalClass): Signal {
+  return signal as unknown as Signal
+}
+
+class Signal implements PublicPart<SignalClass> {
   _name: string
-  _callbacks: ((...args: unknown[]) => void)[] = []
+  _callbacks: ((...args: unknown[]) => void)[] = [] // eslint-disable-line
 
   constructor(name: string) {
     this._name = name
   }
 
+  // eslint-disable-next-line
   connect(callback: (...args: any[]) => void): void {
     if (typeof callback !== 'function') return
     this._callbacks.push(callback)
   }
 
-  disconnect(callback: () => void): void {
+  // eslint-disable-next-line
+  disconnect(callback: (...args: any[]) => void): void {
     const ind = this._callbacks.findIndex((cb) => {
       return cb === callback
     })
@@ -85,7 +92,7 @@ export class Signal implements SignalClass {
     this._callbacks.splice(ind, 1)
   }
 
-  _emit(...args: unknown[]): void {
+  _emit(...args: unknown[]) {
     this._callbacks.forEach((cb) => {
       if (typeof cb !== 'function') return
       cb(...args)
@@ -93,25 +100,38 @@ export class Signal implements SignalClass {
   }
 }
 
-export class Greeter implements GreeterClass {
-  is_mock = true
+class MessageSignal extends Signal implements PublicPart<MessageSignalClass> {
+  connect(callback: (message: string, type: number) => void) {
+    super.connect(callback)
+  }
+}
+class PromptSignal extends Signal implements PublicPart<PromptSignalClass> {
+  connect(callback: (message: string, type: number) => void) {
+    super.connect(callback)
+  }
+}
+
+function mock(instance: Signal): SignalClass {
+  return instance as unknown as SignalClass
+}
+
+class Greeter implements GreeterClass {
   mock_password = 'mock'
 
-  authentication_complete = new Signal('authentication_complete')
-  autologin_timer_expired = new Signal('autologin_timer_expired')
-  idle = new Signal('idle')
-  reset = new Signal('reset')
-  show_message = new Signal('show_message')
-  show_prompt = new Signal('show_prompt')
-  brightness_update = new Signal('show_message')
-  battery_update = new Signal('battery_update')
+  authentication_complete = mock(new Signal('authentication_complete'))
+  autologin_timer_expired = mock(new Signal('autologin_timer_expired'))
+  idle = mock(new Signal('idle'))
+  reset = mock(new Signal('reset'))
+  show_message = mock(new MessageSignal('show_message'))
+  show_prompt = mock(new PromptSignal('show_prompt'))
+  brightness_update = mock(new Signal('show_message'))
+  battery_update = mock(new Signal('battery_update'))
 
   authentication_user: string | null = null
   autologin_guest = false
   autologin_timeout = 0
   autologin_user = ''
-
-  private _battery: LightDMBattery = {
+  battery_data = {
     name: 'BAT0',
     level: 85,
     status: 'Discharging',
@@ -120,13 +140,9 @@ export class Greeter implements GreeterClass {
     capacity: 100,
     watt: 0,
   }
-  get battery_data(): LightDMBattery {
-    return this._battery
+  get batteryData() {
+    return this.battery_data
   }
-  get batteryData(): LightDMBattery {
-    return this._battery
-  }
-
   private _brightness = 50
   get brightness(): number {
     return this._brightness
@@ -135,7 +151,7 @@ export class Greeter implements GreeterClass {
     if (quantity < 0) quantity = 0
     else if (quantity > 100) quantity = 100
     this._brightness = quantity
-    this.brightness_update._emit()
+    signalToSignal(this.brightness_update)._emit()
   }
 
   can_access_battery = true
@@ -173,30 +189,30 @@ export class Greeter implements GreeterClass {
   sessions = [
     new LightDMSession('awesome', 'Awesome wm', 'Highly configurable framework window manager'),
     new LightDMSession('ubuntu', 'Ubuntu', 'This session starts Ubuntu'),
+    new LightDMSession(
+      'ubuntu-wayland',
+      'Ubuntu (on Wayland)',
+      'This session starts Ubuntu on Wayland',
+      'wayland',
+    ),
     new LightDMSession('plasma', 'Plasma (X11)', 'Plasma, by KDE'),
     new LightDMSession('mate', 'MATE', 'This session logs you into MATE'),
     new LightDMSession('cinnamon', 'Cinnamon', 'This session logs you into Cinnamon'),
-    new LightDMSession('leftwm', 'LeftWM', 'A tiling window manager for Adventurers'),
+    new LightDMSession('openbox', 'Openbox', 'This session logs you into Openbox'),
   ]
   show_manual_login_hint = true
   show_remote_login_hint = false
   users = [
-    new LightDMUser('superman', 'Clark Kent', 'assets/img/avatar.png', 'ubuntu'),
+    new LightDMUser('superman', 'Clark Kent', '', 'ubuntu'),
     new LightDMUser('batman', 'Bruce Wayne', '', 'cinnamon'),
     new LightDMUser('spiderman', 'Peter Parker', '', 'awesome'),
   ]
 
   authenticate(username: string | null) {
-    if (username !== null && this.users.find((u) => u.username === username) === undefined) {
-      this.show_message._emit('Unknown username', 1)
-      return false
-    }
     this.authentication_user = username
     this.in_authentication = true
     if (username == null) {
-      this.show_prompt._emit('login:', 0)
-    } else {
-      this.show_prompt._emit('password:', 1)
+      signalToSignal(this.show_prompt)._emit('login:', 0)
     }
     return true
   }
@@ -234,39 +250,33 @@ export class Greeter implements GreeterClass {
   }
 
   hibernate() {
-    alert('hibernate')
     return true
   }
   restart() {
-    alert('restart')
     return true
   }
   shutdown() {
-    alert('shutdown')
     return true
   }
   suspend() {
-    alert('suspend')
     return true
   }
   respond(response: string) {
     if (!this.in_authentication) return false
     if (this.authentication_user == null) {
       this.authentication_user = response
-      this.show_prompt._emit('Password: ', 1)
+      signalToSignal(this.show_prompt)._emit('Password: ', 1)
     } else {
       if (response === this.mock_password) {
-        setTimeout(() => {
-          this.is_authenticated = true
-          this.in_authentication = false
-          this.authentication_complete._emit()
-        }, 250)
+        this.is_authenticated = true
+        this.in_authentication = false
+        signalToSignal(this.authentication_complete)._emit()
       } else {
         setTimeout(() => {
           this.is_authenticated = false
-          this.authentication_complete._emit()
-          this.show_prompt._emit('Password: ', 1)
-        }, 1000)
+          signalToSignal(this.authentication_complete)._emit()
+          signalToSignal(this.show_prompt)._emit('Password: ', 1)
+        }, 3000)
       }
     }
     return true
@@ -283,17 +293,16 @@ export class Greeter implements GreeterClass {
     return false
   }
   start_session(session: string | null): boolean {
-    const s = session ?? this.default_session
-    alert(`starting '${s}' session`)
+    console.log('Session:', session ?? this.default_session)
     return true
   }
 }
 
-export class GreeterConfig implements GreeterConfigClass {
+class GreeterConfig implements GreeterConfigClass {
   branding = {
     background_images_dir: '/usr/share/backgrounds',
-    logo: 'file:///usr/share/web-greeter/themes/svelte/images/logo.png',
-    user_image: 'assets/img/avatar.png',
+    logo: '/usr/share/web-greeter/themes/default/img/antergos-logo-user.png',
+    user_image: '/usr/share/web-greeter/themes/default/img/antergos.png',
   }
 
   greeter = {
@@ -301,7 +310,7 @@ export class GreeterConfig implements GreeterConfigClass {
     detect_theme_errors: true,
     screensaver_timeout: 300,
     secure_mode: true,
-    time_language: 'de',
+    time_language: '',
     theme: 'none',
   }
 
@@ -323,7 +332,8 @@ export class GreeterConfig implements GreeterConfigClass {
 }
 
 let time_language = ''
-export class ThemeUtils implements ThemeUtilsClass {
+class ThemeUtils implements ThemeUtilsClass {
+  // eslint-disable-next-line
   bind_this(context: Record<string, any>) {
     const excluded_methods = ['constructor']
 
@@ -352,7 +362,7 @@ export class ThemeUtils implements ThemeUtilsClass {
   }
   dirlist(
     path: string,
-    only_images = true, // eslint-disable-line
+    _only_images = true, // eslint-disable-line
     callback: (files: string[]) => void,
   ) {
     if ('' === path || 'string' !== typeof path) {
@@ -364,31 +374,16 @@ export class ThemeUtils implements ThemeUtilsClass {
       path = path.replace(/\/\.+(?=\/)/g, '')
     }
 
-    let response = []
-    if (path.startsWith('/usr/share/web-greeter/themes/neon/')) {
-      response = [
-        'assets/img/backgrounds/arcade.jpg',
-        'assets/img/backgrounds/canyon.jpg',
-        'assets/img/backgrounds/computer.jpg',
-        'assets/img/backgrounds/paper.jpg',
-        'assets/img/backgrounds/plants.jpg',
-        'assets/img/backgrounds/purple.jpg',
-        'assets/img/backgrounds/splashes.jpg',
-        'assets/img/backgrounds/supermarket.jpg',
-        'assets/img/backgrounds/urban.jpg',
-      ]
-    }
-
     try {
       // Should be changed here
-      return callback(response)
+      return callback([])
     } catch (err) {
       console.error(`theme_utils.dirlist(): ${err}`)
       return callback([])
     }
   }
   // eslint-disable-next-line
-  dirlist_sync(path: string, images_only = true): string[] {
+  dirlist_sync(_path: string, _only_images = true): string[] {
     return []
   }
 
@@ -429,12 +424,15 @@ export class ThemeUtils implements ThemeUtilsClass {
 }
 
 if (window._ready_event == undefined) {
-  console.debug('lightdm not found, api will be mocked')
   window.lightdm = new Greeter()
   window.greeter_config = new GreeterConfig()
   window.theme_utils = new ThemeUtils()
   window._ready_event = new Event('GreeterReady')
-  window.is_mocked = true
+
+  window.lightdm.show_prompt.connect((message: string, type: number) => {
+    console.log({ message, type })
+  })
+
   window.addEventListener('DOMContentLoaded', () => {
     setTimeout(() => {
       if (window._ready_event) window.dispatchEvent(window._ready_event)
