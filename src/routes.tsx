@@ -1,4 +1,4 @@
-import { NotFoundRoute, RootRoute, Route, Router } from '@tanstack/react-router'
+import { NotFoundRoute, RootRoute, Route, Router, createHashHistory } from '@tanstack/react-router'
 import Home from './pages'
 import NotFound from './pages/notFound'
 
@@ -15,9 +15,12 @@ const notFoundRoute = new NotFoundRoute({
   component: NotFound,
 })
 
+const hashHistory = createHashHistory()
+
 const router = new Router({
   routeTree: rootRoute.addChildren([indexRoute]),
   notFoundRoute,
+  history: hashHistory,
 })
 
 declare module '@tanstack/react-router' {
