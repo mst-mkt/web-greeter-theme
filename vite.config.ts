@@ -1,8 +1,8 @@
 import react from '@vitejs/plugin-react-swc'
 import { defineConfig } from 'vite'
-import styleXVitePlugin from 'vite-plugin-stylex'
+import { stylexPlugin } from 'vite-plugin-stylex-dev'
 
 export default defineConfig({
   base: './',
-  plugins: [react(), styleXVitePlugin()],
+  plugins: [react(), stylexPlugin()],
 })
