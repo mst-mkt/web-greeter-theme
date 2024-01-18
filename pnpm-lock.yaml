@@ -9,11 +9,11 @@ dependencies:
     specifier: ^0.4.1
     version: 0.4.1
   '@tanstack/react-router':
-    specifier: ^1.5.3
-    version: 1.5.3(react-dom@18.2.0)(react@18.2.0)
+    specifier: ^1.5.7
+    version: 1.5.7(react-dom@18.2.0)(react@18.2.0)
   '@tanstack/router-devtools':
-    specifier: ^1.5.3
-    version: 1.5.3(react-dom@18.2.0)(react@18.2.0)
+    specifier: ^1.5.7
+    version: 1.5.7(react-dom@18.2.0)(react@18.2.0)
   core-js:
     specifier: ^3.35.0
     version: 3.35.0
@@ -759,7 +759,7 @@ packages:
       css-mediaquery: 0.1.2
       invariant: 2.2.4
       styleq: 0.1.3
-      utility-types: 3.10.0
+      utility-types: 3.11.0
     dev: false
 
   /@swc/core-darwin-arm64@1.3.104:
@@ -885,20 +885,20 @@ packages:
     resolution: {integrity: sha512-myfUej5naTBWnqOCc/MdVOLVjXUXtIA+NpDrDBKJtLLg2shUjBu3cZmB/85RyitKc55+lUUyl7oRfLOvkr2hsw==}
     dev: true
 
-  /@tanstack/history@1.5.3:
-    resolution: {integrity: sha512-tLvDmdk7MCg05EW8lFrUUH+Yb2vWCswqARAN3jymitgT/nH9ltUGUnBVRDFfY3sEGFLokMI/w24HWDEUlv2aSw==}
+  /@tanstack/history@1.5.7:
+    resolution: {integrity: sha512-YBlDjkWN3Gmjx2nszA5YitRQ2LcV+A3nBmXX+GPWPILc3bef3YIms19KBvlf2SyGQY0nDwTi5wTzSP8x+NUtjQ==}
     engines: {node: '>=12'}
     dev: false
 
-  /@tanstack/react-router@1.5.3(react-dom@18.2.0)(react@18.2.0):
-    resolution: {integrity: sha512-N7CffGMV3J2By57D2DqM+wL82qbnJeNhcmFOIQ6Va76A0TDxWMU9M9W9LA3NWqXvotyUuhlG6X0C2gYf7xYLpA==}
+  /@tanstack/react-router@1.5.7(react-dom@18.2.0)(react@18.2.0):
+    resolution: {integrity: sha512-czlQ0I8Go7ZME5RcezS38rpnYEiS2y3LVMRMQNPogLoA1fgAOpEiQrC6826Dj+1N5R+/xWNChnoMfN8eLStzbw==}
     engines: {node: '>=12'}
     peerDependencies:
       react: '>=16'
       react-dom: '>=16'
     dependencies:
       '@babel/runtime': 7.23.8
-      '@tanstack/history': 1.5.3
+      '@tanstack/history': 1.5.7
       '@tanstack/react-store': 0.2.1(react-dom@18.2.0)(react@18.2.0)
       '@tanstack/store': 0.1.3
       react: 18.2.0
@@ -919,15 +919,15 @@ packages:
       use-sync-external-store: 1.2.0(react@18.2.0)
     dev: false
 
-  /@tanstack/router-devtools@1.5.3(react-dom@18.2.0)(react@18.2.0):
-    resolution: {integrity: sha512-Ye6FgeisWAk3qVkuA0UwponS4cz1ebwtOJgyp8Tm+pieiNs9ULZpmD8VttJ8uT1xrlr8CgBbBdwuY8+X1oEUcg==}
+  /@tanstack/router-devtools@1.5.7(react-dom@18.2.0)(react@18.2.0):
+    resolution: {integrity: sha512-1QZZ5QrhUx8TA8vF3buRDZHkmolWdQu8G+BKV63w0pWZk/2lg6I9HmxFoPQNvaT5rDfs1E5xMkZlAXEglr0T9A==}
     engines: {node: '>=12'}
     peerDependencies:
       react: '>=16'
       react-dom: '>=16'
     dependencies:
       '@babel/runtime': 7.23.8
-      '@tanstack/react-router': 1.5.3(react-dom@18.2.0)(react@18.2.0)
+      '@tanstack/react-router': 1.5.7(react-dom@18.2.0)(react@18.2.0)
       date-fns: 2.30.0
       react: 18.2.0
       react-dom: 18.2.0(react@18.2.0)
@@ -1007,14 +1007,14 @@ packages:
     engines: {node: ^6 || ^7 || ^8 || ^9 || ^10 || ^11 || ^12 || >=13.7}
     hasBin: true
     dependencies:
-      caniuse-lite: 1.0.30001578
+      caniuse-lite: 1.0.30001579
       electron-to-chromium: 1.4.637
       node-releases: 2.0.14
       update-browserslist-db: 1.0.13(browserslist@4.22.2)
     dev: true
 
-  /caniuse-lite@1.0.30001578:
-    resolution: {integrity: sha512-J/jkFgsQ3NEl4w2lCoM9ZPxrD+FoBNJ7uJUpGVjIg/j0OwJosWM36EPDv+Yyi0V4twBk9pPmlFS+PLykgEvUmg==}
+  /caniuse-lite@1.0.30001579:
+    resolution: {integrity: sha512-u5AUVkixruKHJjw/pj9wISlcMpgFWzSrczLZbrqBSxukQixmg0SJ5sZTpvaFvxU0HoQKd4yoyAogyrAz9pzJnA==}
     dev: true
 
   /chalk@2.4.2:
@@ -1638,8 +1638,8 @@ packages:
       react: 18.2.0
     dev: false
 
-  /utility-types@3.10.0:
-    resolution: {integrity: sha512-O11mqxmi7wMKCo6HKFt5AhO4BwY3VV68YU07tgxfz8zJTIxr4BpsezN49Ffwy9j3ZpwwJp4fkRwjRzq3uWE6Rg==}
+  /utility-types@3.11.0:
+    resolution: {integrity: sha512-6Z7Ma2aVEWisaL6TvBCy7P8rm2LQoPv6dJ7ecIaIixHcwfbJ0x7mWdbcwlIM5IGQxPZSFYeqRCqlOOeKoJYMkw==}
     engines: {node: '>= 4'}
     dev: false
 

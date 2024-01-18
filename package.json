@@ -15,8 +15,8 @@
   },
   "dependencies": {
     "@stylexjs/stylex": "^0.4.1",
-    "@tanstack/react-router": "^1.5.3",
-    "@tanstack/router-devtools": "^1.5.3",
+    "@tanstack/react-router": "^1.5.7",
+    "@tanstack/router-devtools": "^1.5.7",
     "core-js": "^3.35.0",
     "lucide-react": "^0.309.0",
     "nody-greeter-types": "^1.1.0",
