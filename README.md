@@ -41,3 +41,7 @@ $ pnpm prepare
 ```sh
 $ pnpm dev
 ```
+
+## Credits
+
+All background images are from [Unsplash](https://unsplash.com/) under the [Unsplash license](https://unsplash.com/license).
