@@ -1,8 +1,10 @@
-import { ChangeEvent, useState } from 'react'
+import { ChangeEvent } from 'react'
+import { PasswordInput } from '../components/PasswordInput'
+import { useInput } from '../hooks/useInput'
 import { useGreeterStore } from '../stores/greeterStore'
 
 const Home = () => {
-  const [password, setPassword] = useState('')
+  const [password, setPassword] = useInput('')
   const { selectedUser, selectUser, selectedSession, selectSession } = useGreeterStore()
 
   const handleUserSelect = (event: ChangeEvent<HTMLSelectElement>) => {
@@ -16,10 +18,6 @@ const Home = () => {
     const sessionKey = event.target.value
     const session = window.lightdm?.sessions.find((session) => session.key === sessionKey)
     session && selectSession(session)
-  }
-
-  const handlePasswordInput = (event: ChangeEvent<HTMLInputElement>) => {
-    setPassword(event.target.value)
   }
 
   const login = () => {
@@ -39,7 +37,7 @@ const Home = () => {
           <option value={session.key}>{session.name}</option>
         ))}
       </select>
-      <input type="text" onChange={handlePasswordInput} />
+      <PasswordInput value={password} onChange={setPassword} onEnter={login} />
       <button onClick={login} type="button">
         Login
       </button>
