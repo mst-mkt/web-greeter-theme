@@ -67,6 +67,8 @@ export const PasswordInput = ({ value, onChange, onEnter }: Props) => {
         value={value}
         placeholder="Password"
         onChange={onChange}
+        // biome-ignore lint/a11y/noAutofocus: It is a component that does not affect a11y much
+        autoFocus
         {...stylex.props(styles.input)}
       />
       <button onClick={toggleShowPassword} type="button" {...stylex.props(styles.button)}>
