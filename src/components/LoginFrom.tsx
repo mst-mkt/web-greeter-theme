@@ -15,7 +15,7 @@ const styles = create({
     justifyItems: 'center',
     width: 'min(384px, 92svw)',
     margin: '0 auto',
-    rowGap: 36,
+    rowGap: 32,
     columnGap: 8,
   },
   avatar: {
@@ -24,7 +24,6 @@ const styles = create({
   name: {
     gridColumn: '1 / 3',
     fontSize: 24,
-    fontWeight: 'bold',
     margin: 0,
   },
 })
