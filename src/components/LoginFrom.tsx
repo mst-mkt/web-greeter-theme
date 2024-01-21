@@ -1,5 +1,6 @@
 import { create, props } from '@stylexjs/stylex'
 import { LogInIcon } from 'lucide-react'
+import { useMemo } from 'react'
 import { useInput } from '../hooks/useInput'
 import { useGreeterStore } from '../stores/greeterStore'
 import { Avatar } from './Avatar'
@@ -37,10 +38,15 @@ export const LoginForm = () => {
     window.lightdm.respond(password)
   }
 
+  const name = useMemo(() => {
+    const existName = selectedUser?.display_name !== undefined && selectedUser?.display_name !== ''
+    return existName ? selectedUser?.display_name : selectedUser?.username
+  }, [selectedUser])
+
   return (
     <div {...props(styles.container)}>
       <Avatar user={selectedUser ?? undefined} style={styles.avatar} />
-      <p {...props(styles.name)}>{selectedUser?.display_name ?? selectedUser?.username}</p>
+      <p {...props(styles.name)}>{name}</p>
       <PasswordInput value={password} onChange={setPassword} onEnter={login} />
       <IconButton Icon={LogInIcon} onClick={login} />
     </div>
