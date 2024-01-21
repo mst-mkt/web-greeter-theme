@@ -5,8 +5,8 @@ const styles = create({
   container: {
     display: 'grid',
     placeContent: 'center',
-    width: '100svw',
-    height: '100svh',
+    width: '100vw',
+    height: '100vh',
     backdropFilter: 'blur(12px)',
     backgroundColor: '#fff2',
   },
