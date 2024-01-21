@@ -203,6 +203,7 @@ class Greeter implements GreeterClass {
   show_manual_login_hint = true
   show_remote_login_hint = false
   users = [
+    new LightDMUser('mst-mkt', '', 'https://github.com/mst-mkt.png', 'i3'),
     new LightDMUser('superman', 'Clark Kent', '', 'ubuntu'),
     new LightDMUser('batman', 'Bruce Wayne', '', 'cinnamon'),
     new LightDMUser('spiderman', 'Peter Parker', '', 'awesome'),
