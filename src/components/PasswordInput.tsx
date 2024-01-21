@@ -27,6 +27,9 @@ const styles = create({
     outline: 0,
     backgroundColor: 'transparent',
     width: '100%',
+    color: {
+      '::placeholder': '#0006',
+    },
   },
   button: {
     display: 'flex',
