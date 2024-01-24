@@ -35,7 +35,6 @@ greeter:
 
 ```sh
 $ pnpm i --frozen-lockfile
-$ pnpm prepare
 ```
 
 ```sh
