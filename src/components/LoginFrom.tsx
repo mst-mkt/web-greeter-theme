@@ -1,4 +1,4 @@
-import { create, props } from '@stylexjs/stylex'
+import { create, keyframes, props } from '@stylexjs/stylex'
 import { LogInIcon } from 'lucide-react'
 import { useMemo } from 'react'
 import { useInput } from '../hooks/useInput'
@@ -6,6 +6,15 @@ import { useGreeterStore } from '../stores/greeterStore'
 import { Avatar } from './Avatar'
 import { IconButton } from './IconButton'
 import { PasswordInput } from './PasswordInput'
+
+const opacityAnimation = keyframes({
+  from: {
+    opacity: 0,
+  },
+  to: {
+    opacity: 1,
+  },
+})
 
 const styles = create({
   container: {
@@ -17,6 +26,10 @@ const styles = create({
     margin: '0 auto',
     rowGap: 32,
     columnGap: 8,
+    animationName: opacityAnimation,
+    animationDuration: '500ms',
+    animationTimingFunction: 'ease-out',
+    animationFillMode: 'forwards',
   },
   avatar: {
     gridColumn: '1 / 3',

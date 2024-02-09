@@ -1,5 +1,14 @@
-import { create, props } from '@stylexjs/stylex'
+import { create, keyframes, props } from '@stylexjs/stylex'
 import { LoginForm } from '../components/LoginFrom'
+
+const blurAnimation = keyframes({
+  from: {
+    backdropFilter: 'blur(0)',
+  },
+  to: {
+    backdropFilter: 'blur(12px)',
+  },
+})
 
 const styles = create({
   container: {
@@ -7,8 +16,11 @@ const styles = create({
     placeContent: 'center',
     width: '100vw',
     height: '100vh',
-    backdropFilter: 'blur(12px)',
     backgroundColor: '#fff2',
+    animationName: blurAnimation,
+    animationDuration: '500ms',
+    animationTimingFunction: 'ease-out',
+    animationFillMode: 'forwards',
   },
 })
 
