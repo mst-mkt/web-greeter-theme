@@ -27,8 +27,9 @@ const styles = create({
     outline: 0,
     backgroundColor: 'transparent',
     width: '100%',
-    color: {
-      '::placeholder': '#0006',
+    fontFamily: 'inherit',
+    '::placeholder': {
+      color: '#0008',
     },
   },
   button: {
