@@ -1,5 +1,6 @@
 import { NotFoundRoute, RootRoute, Route, Router, createHashHistory } from '@tanstack/react-router'
 import Home from './pages'
+import Login from './pages/login'
 import NotFound from './pages/notFound'
 
 const rootRoute = new RootRoute({})
@@ -10,6 +11,12 @@ export const indexRoute = new Route({
   component: () => <Home />,
 })
 
+export const loginRoot = new Route({
+  getParentRoute: () => rootRoute,
+  path: '/login',
+  component: () => <Login />,
+})
+
 const notFoundRoute = new NotFoundRoute({
   getParentRoute: () => rootRoute,
   component: NotFound,
@@ -18,7 +25,7 @@ const notFoundRoute = new NotFoundRoute({
 const hashHistory = createHashHistory()
 
 const router = new Router({
-  routeTree: rootRoute.addChildren([indexRoute]),
+  routeTree: rootRoute.addChildren([indexRoute, loginRoot]),
   notFoundRoute,
   history: hashHistory,
 })
