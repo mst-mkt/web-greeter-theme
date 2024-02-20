@@ -1,12 +1,14 @@
 import { create } from 'zustand'
 import { devtools, persist } from 'zustand/middleware'
 
+type ImageNumber = '01'
+
 type ConfigStore = {
-  backgroundImage: string
+  backgroundImage: ImageNumber
 }
 
 type ConfigActions = {
-  setBackgroundImage: (index: string) => void
+  setBackgroundImage: (index: ImageNumber) => void
 }
 
 export const useConfigStore = create<ConfigStore & ConfigActions>()(
