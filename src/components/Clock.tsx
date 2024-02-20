@@ -12,7 +12,7 @@ const styles = create({
 })
 
 export const Clock = () => {
-  const currectTime = useClock()
+  const currentTime = useClock()
 
-  return <time {...props(styles.clock)}>{currectTime.toLocaleTimeString()}</time>
+  return <time {...props(styles.clock)}>{currentTime.toLocaleTimeString()}</time>
 }
