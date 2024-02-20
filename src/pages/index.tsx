@@ -1,7 +1,7 @@
 import { create, props } from '@stylexjs/stylex'
 import { Link, useNavigate } from '@tanstack/react-router'
 import { useEffect } from 'react'
-import { Clock } from '../components/Clocl'
+import { Clock } from '../components/Clock'
 
 const styles = create({
   container: {
