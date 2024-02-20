@@ -1,7 +1,7 @@
 import { create } from 'zustand'
 import { devtools, persist } from 'zustand/middleware'
 
-type ImageNumber = '01'
+type ImageNumber = '01' | '02' | '03' | '04'
 
 type ConfigStore = {
   backgroundImage: ImageNumber
