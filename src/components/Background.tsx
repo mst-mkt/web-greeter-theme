@@ -1,7 +1,5 @@
 import * as stylex from '@stylexjs/stylex'
-
-// TODO: 設定から選択できるようにする
-const bgImage = '01'
+import { useConfigStore } from '../stores/configStore'
 
 const getBgImage = (name: string) => {
   return new URL(`../assets/images/background/${name}.png`, import.meta.url).href
@@ -19,14 +17,12 @@ const styles = stylex.create({
     backgroundSize: 'cover',
     backgroundPosition: 'center',
   },
+  backgroundImage: (bg: string) => ({
+    backgroundImage: `url(${getBgImage(bg)})`,
+  }),
 })
 
 export const Background = () => {
-  return (
-    <div
-      {...stylex.props(styles.background, {
-        backgroundImage: `url(${getBgImage(bgImage)})`,
-      } as stylex.StyleXStyles)}
-    />
-  )
+  const { backgroundImage } = useConfigStore()
+  return <div {...stylex.props(styles.background, styles.backgroundImage(backgroundImage))} />
 }
