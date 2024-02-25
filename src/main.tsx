@@ -1,6 +1,5 @@
 import '@fontsource-variable/lexend'
 import { RouterProvider } from '@tanstack/react-router'
-import 'core-js/features/array/at'
 import React from 'react'
 import ReactDOM from 'react-dom/client'
 import { Background } from './components/Background'
