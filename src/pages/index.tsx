@@ -2,6 +2,7 @@ import { create, props } from '@stylexjs/stylex'
 import { Link, useNavigate } from '@tanstack/react-router'
 import { useEffect } from 'react'
 import { Clock } from '../components/Clock'
+import { useConfigStore } from '../stores/configStore'
 
 const styles = create({
   container: {
@@ -19,6 +20,13 @@ const styles = create({
 
 const Home = () => {
   const navigate = useNavigate({ from: '/' })
+  const { skipFirstPage } = useConfigStore()
+
+  useEffect(() => {
+    if (skipFirstPage) {
+      navigate({ to: '/login' })
+    }
+  }, [navigate, skipFirstPage])
 
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
