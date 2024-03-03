@@ -1,16 +1,22 @@
 import { StyleXStyles, create, props } from '@stylexjs/stylex'
 import { LucideIcon } from 'lucide-react'
+import { ButtonHTMLAttributes } from 'react'
 
 const styles = create({
   button: {
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
-    width: '100%',
+    width: 'fit-content',
     height: '100%',
     border: 0,
     borderRadius: 8,
     outline: 0,
+    gap: 8,
+    padding: 8,
+    fontSize: 16,
+    fontFamily: "'Lexend Variable', sans-serif",
+    color: '#333',
     backgroundColor: {
       default: '#69c2f3',
       ':hover': '#5ab6f6',
@@ -28,17 +34,29 @@ const styles = create({
   },
 })
 
-type Props = {
-  Icon: LucideIcon
+type AdditionalProps = {
+  LeftIcon?: LucideIcon
+  RightIcon?: LucideIcon
   onClick?: () => void
   style?: StyleXStyles
   size?: number
 }
 
-export const IconButton = ({ Icon, onClick, style, size = 18 }: Props) => {
+type Props = AdditionalProps & Omit<ButtonHTMLAttributes<HTMLButtonElement>, keyof AdditionalProps>
+
+export const IconButton = ({
+  LeftIcon,
+  RightIcon,
+  onClick,
+  style,
+  size = 18,
+  ...buttonProps
+}: Props) => {
   return (
     <button type="button" onClick={onClick} {...props(styles.button, style)}>
-      <Icon size={size} color="#333" />
+      {LeftIcon && <LeftIcon size={size} color="#333" />}
+      {buttonProps.children}
+      {RightIcon && <RightIcon size={size} color="#333" />}
     </button>
   )
 }

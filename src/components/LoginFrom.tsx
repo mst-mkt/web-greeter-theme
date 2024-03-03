@@ -4,8 +4,8 @@ import { useMemo } from 'react'
 import { useInput } from '../hooks/useInput'
 import { useGreeterStore } from '../stores/greeterStore'
 import { Avatar } from './Avatar'
-import { IconButton } from './IconButton'
 import { PasswordInput } from './PasswordInput'
+import { IconButton } from './common/Button'
 
 const opacityAnimation = keyframes({
   from: {
@@ -60,7 +60,7 @@ export const LoginForm = () => {
       <Avatar user={selectedUser ?? undefined} style={styles.avatar} />
       <p {...props(styles.name)}>{name}</p>
       <PasswordInput value={password} onChange={setPassword} onEnter={login} />
-      <IconButton Icon={LogInIcon} onClick={login} />
+      <IconButton LeftIcon={LogInIcon} onClick={login} />
     </div>
   )
 }
